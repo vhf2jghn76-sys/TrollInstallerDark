@@ -77,6 +77,7 @@ struct MainView: View {
                                 Button(action: {
                                     if !isShowingCredits && !isShowingSettings && !isShowingMDCAlert && !isShowingOTAAlert {
                                         UIImpactFeedbackGenerator().impactOccurred()
+                                        SoundFeedback.playTap()
                                         withAnimation {
                                             isInstalling.toggle()
                                         }
@@ -153,6 +154,7 @@ struct MainView: View {
                         installationFinished = true
                     }
                     UINotificationFeedbackGenerator().notificationOccurred(installedSuccessfully ? .success : .error)
+                    SoundFeedback.playCompletion(success: installedSuccessfully)
                 }
             }
             .onChange(of: isShowingOTAAlert) { new in

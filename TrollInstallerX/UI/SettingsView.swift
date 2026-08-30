@@ -13,11 +13,13 @@ struct SettingsView: View {
     
     @AppStorage("exploitFlavour", store: TIXDefaults()) var exploitFlavour: String = ""
     @AppStorage("verbose", store: TIXDefaults()) var verbose: Bool = false
+    @AppStorage("subtleSounds", store: TIXDefaults()) var subtleSounds: Bool = false
     
     var body: some View {
         VStack(spacing: 10) {
             Button(action: {
                 UIImpactFeedbackGenerator().impactOccurred()
+                SoundFeedback.playTap()
                 let docsDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
                 try? FileManager.default.removeItem(atPath: docsDir.path + "/kernelcache")
             }, label: {
@@ -59,6 +61,16 @@ struct SettingsView: View {
                         .font(.system(size: 17, weight: .regular, design: .rounded))
                         .foregroundColor(.white)
                 })
+                Toggle(isOn: $subtleSounds, label: {
+                    Text("Subtle sounds")
+                        .font(.system(size: 17, weight: .regular, design: .rounded))
+                        .foregroundColor(.white)
+                })
+                .onChange(of: subtleSounds) { new in
+                    if new {
+                        SoundFeedback.playTap()
+                    }
+                }
             }
             .padding()
             
