@@ -22,6 +22,7 @@ struct MenuView: View {
                     Button(action: {
                         if !isShowingCredits && !isShowingSettings && !isShowingMDCAlert && !isShowingOTAAlert {
                             UIImpactFeedbackGenerator().impactOccurred()
+                            SoundFeedback.playTap()
                             withAnimation {
                                 isShowingSettings = true
                             }
@@ -57,6 +58,7 @@ struct MenuView: View {
                     Button(action: {
                         if !isShowingCredits && !isShowingSettings && !isShowingMDCAlert && !isShowingOTAAlert {
                             UIImpactFeedbackGenerator().impactOccurred()
+                            SoundFeedback.playTap()
                             withAnimation {
                                 isShowingCredits = true
                             }
